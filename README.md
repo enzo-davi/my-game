@@ -1,2 +1,2 @@
 # my-game
-criação do jogo
+Criação do jogo.ção do jogo.
