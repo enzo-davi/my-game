@@ -22,4 +22,4 @@ intents = discord.Intents.default()
 intents.message_content = True
 
 client = MyClient(intents=intents)
-client.run(getenv("DISCORD_TOKEN"))
+client.run(TOKEN_DO_BOT)
