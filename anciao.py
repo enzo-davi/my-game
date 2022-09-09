@@ -1,8 +1,10 @@
-from os import getenv
+from os import getenv, path
 from dotenv import load_dotenv
 import discord
+import random
 load_dotenv()
 
+imagens = ['batman.jpg','lagartixa.jpg','mordecai.jpg','trump.jpeg']
 
 class MyClient(discord.Client):
     async def on_ready(self):
@@ -15,11 +17,11 @@ class MyClient(discord.Client):
             return
 
         if message.content.startswith('.'):
-            await message.reply('AAAAAAAAAAAAAAAAAAAAAAAAAAAAa', mention_author=True)
+            await message.reply('bingos bongos',file= discord.File(path.join('imagens', random.choice(imagens))),mention_author=True)
 
 
 intents = discord.Intents.default()
 intents.message_content = True
 
 client = MyClient(intents=intents)
-client.run(TOKEN_DO_BOT)
+client.run(getenv("TOKEN_DO_BOT"))
