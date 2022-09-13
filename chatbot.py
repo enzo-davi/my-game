@@ -6,7 +6,7 @@ load_dotenv()
 import random
 lista_juca = ['melancia com mel', 'the rock cocaina' , 'pequenoi grande anão' , 'pimenta com granola' , 'falo tudo que penso']
 lista_enzo = ['branquinho básico']
-lista_davi = ['criança grande']
+lista_davi = ['davi não pegue']
 lista_nico = ['nariz']
 lista_pedro = ['alcólatra']
 lista_vi = ['bebado triste']
