@@ -1,3 +1,25 @@
-x=4
-y=5
-print(x**x)
+from os import getenv
+from dotenv import load_dotenv
+import discord
+load_dotenv()
+
+
+class MyClient(discord.Client):
+    async def on_ready(self):
+        print(f'Logged in as {self.user} (ID: {self.user.id})')
+        print('------')
+
+    async def on_message(self, message):
+        # we do not want the bot to reply to itself
+        if message.author.id == self.user.id:
+            return
+
+        if message.content.startswith('!enzo'):
+            await message.reply('Hello!', mention_author=True)
+
+
+intents = discord.Intents.default()
+intents.message_content = True
+
+client = MyClient(intents=intents)
+client.run(getenv("DISCORD_TOKEN"))
