@@ -1,9 +1,9 @@
 from os import getenv, path
 from dotenv import load_dotenv
 import discord
+from discord import FFmpegPCMAudio
 import random
 from discord.ext import commands
-import gstreamer
 load_dotenv()
 # ali em cima eu importo tudo que eu vou usar no projeto, 
 # já que se viesse tudo imbutido no python seria uma aplicação pesada demais
@@ -34,7 +34,9 @@ async def on_ready():
 async def iniciar(ctx):
     if (ctx.message.author.voice):
         channel = ctx.message.author.voice.channel
-        await channel.connect()
+        voice = await channel.connect()
+        source = FFmpegPCMAudio('interior_ambiance.mp3')
+        player = voice.play(source)
     else:
         await ctx.send('Entre numa call, rapaz, depois me chame.')
 
