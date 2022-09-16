@@ -4,6 +4,9 @@ import discord
 load_dotenv()
 
 import random
+imagens = ['imagem.png','imagem1.jpeg','imagem2.jpeg','imagem3.jpeg']
+
+import random
 lista_juca = ['melancia com mel', 'the rock cocaina' , 'pequenoi grande anão' , 'pimenta com granola' , 'falo tudo que penso']
 lista_enzo = ['branquinho básico']
 lista_davi = ['davi não pegue']
@@ -17,27 +20,33 @@ class MyClient(discord.Client):
         print('------')
 
     async def on_message(self, message):
-        # we do not want the bot to reply to itself
         if message.author.id == self.user.id:
             return
 
         if message.content.startswith('.juca'):
-            await message.reply( random.choice(lista_juca), mention_author=True)
+
+            await message.reply(random.choice(lista_juca), mention_author=True)
+            await message.reply(file= discord.File(random.choice(imagens)),mention_author=True)
 
         if message.content.startswith('.enzo'):
-            await message.reply( random.choice(lista_enzo), mention_author=True)
+            await message.reply(random.choice(lista_enzo), mention_author=True)
+            await message.reply(file= discord.File(random.choice(imagens)),mention_author=True)
 
         if message.content.startswith('.davi'):
-            await message.reply( random.choice(lista_davi), mention_author=True)
+            await message.reply(random.choice(lista_davi), mention_author=True)
+            await message.reply(file= discord.File(random.choice(imagens)),mention_author=True)
 
         if message.content.startswith('.nico'):
-            await message.reply( random.choice(lista_nico), mention_author=True)
+            await message.reply(random.choice(lista_nico), mention_author=True)
+            await message.reply(file= discord.File(random.choice(imagens)),mention_author=True)
 
         if message.content.startswith('.pedro'):
-            await message.reply( random.choice(lista_pedro), mention_author=True)
+            await message.reply(random.choice(lista_pedro), mention_author=True)
+            await message.reply(file= discord.File(random.choice(imagens)),mention_author=True)
 
         if message.content.startswith('.vi'):
-            await message.reply( random.choice(lista_vi), mention_author=True)
+            await message.reply(random.choice(lista_vi), mention_author=True)
+            await message.reply(file= discord.File(random.choice(imagens)),mention_author=True)
 
 intents = discord.Intents.default()
 intents.message_content = True
