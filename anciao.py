@@ -1,12 +1,14 @@
 from os import getenv, path
 from dotenv import load_dotenv
 import discord
+from discord import FFmpegPCMAudio
 import random
+from discord.ext import commands
 load_dotenv()
 
 imagens = ['batman.jpg','lagartixa.jpg','mordecai.jpg','trump.jpeg']
 
-class MyClient(discord.Client):
+class MyBot(discord.Client):
     async def on_ready(self):
         print(f'Logged in as {self.user} (ID: {self.user.id})')
         print('------')
@@ -18,6 +20,9 @@ class MyClient(discord.Client):
 
         if message.content.startswith('.'):
             await message.reply('bingos bongos',file= discord.File(path.join('imagens', random.choice(imagens))),mention_author=True)
+
+
+
 
 
 intents = discord.Intents.default()
