@@ -2,7 +2,7 @@
 
 ## premissa
 
-Será um jogo de terror/suspense, com foco nas escolhas feito pelo jogador, que poderão decidir o final da história. A história irá se passar dentro de uma torre, em um mundo onde as pessoas tem poderes mágicos, por volta do século XVI. O personagem principal é um nobre que mora junto de sua família em uma torre, no qual será o local de assasinato de um dos membros de sua família, e sabendo que a torre possui proteções contra invasores, torna possivel que o assasino de seu familiar seja um outro menbro de sua família, ou alguém que tenha se infiltrado na torre sem que ninguém percebesse.
+Será um jogo de narrativa, com foco nas escolhas feitas pelo jogador, que decidirá o destino do personagem. A história se passará parte em uma floresta, parte em uma torre, por volta do século XVI, em um mundo onde a magia é real. Será contada pelo ancião a história de um momento vivido pelo seu personagem, quando ao ser capturado como prisioneiro, por ser habilidoso com magia, é levado a uma grande torre sombria, no qual terá de enfrentar grandes desafios para poder sobreviver e finalizar a masmorra, para poder então conquistar sua liberdade, e desfrutar de grandes prêmios. 
 
 ## Inspiraçoes 
 
