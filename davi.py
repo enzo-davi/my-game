@@ -28,6 +28,19 @@ bot = commands.Bot(intents=intents, command_prefix='!')
 
 
 
+
+
+#dicionario das partidas do jogador
+partidas = {}
+
+
+@bot.event
+async def on_ready():
+    print('O Bot está preparado')
+    print('------')
+
+
+
 estados = {
     0: {
             "frases":["Digite 'grito'!"],
@@ -35,11 +48,19 @@ estados = {
     },
 
     1:{ 
-            "frases":["Uma vez eu acordei de um sonho horrível.\nEu estava sentado no sofá da sala, junto de meu pai, eu podia escutar sua respiração, ele dormia também.\nAo acordá-lo para contar meu sonho, ele resmunga algumas palavras ininteligíveis, eu assumi que seu cansaço era devido à minha súbita interrupção de seu sono profundo.\n\"Acorde pai! Eu tenho medo, meu sonho foi muito ruim.\"\nDe repente, as luzes se acendem, eu olho para ver quem acendeu o interruptor, e encontro ninguém mais e ninguém menos do que meu próprio pai, em pé, mão direita no interruptor, expressão neutra e pupilas dilatadas como se não houvesse vida naqueles olhos.\nOlhando de volta para o sofá, meu pai já não está mais lá.\nA TV liga sozinha, e o barulho de estática torna-se horrivelmente alto.\nEu [[grito]].\nO que aconteceu?"],
-            "proximos_estados":{}
-    }
-}
+            "frases":[('A sua jornada começa com um forte solavanco.\n\n'
 
+'Você é subitamente acordado pela pancada.\n\n'
+
+'"Um sonho?"\n\n'
+'Você observa seus arredores e percebe que o solavanco\n'
+'que sentiu foi simplesmente a carroça de madeira em que você se encontra passando acima de um buraco na estrada.\n\n'
+
+)],
+            "proximos_estados":{'continuar'}
+    }
+
+}
 
 
 
@@ -57,49 +78,59 @@ async def on_ready():
     print('------')
 
 
+
 @bot.command(pass_context= True)
-async def iniciar(ctx):
-    if (ctx.message.author.voice):
-        channel = ctx.message.author.voice.channel
+async def iniciar(msg):
+    if (msg.author.voice):
+        channel = msg.author.voice.channel
         voice = await channel.connect()
         source = FFmpegPCMAudio('interior_ambiance.mp3')
         player = voice.play(source)
-        await ctx.message.channel.send('olá')
+        await msg.channel.send('olá')
     else:
-        await ctx.send('Entre numa call, rapaz, depois me chame.')
+        await msg.channel.send('Entre numa call, rapaz, depois me chame.')
     
 
 
 
 
 @bot.command(pass_context= True)
-async def sair(ctx):
-    if (ctx.voice_client):
-        await ctx.guild.voice_client.disconnect()
+async def sair(msg):
+    if (msg.voice_client):
+        await msg.guild.voice_client.disconnect()
         frase_de_despedida = random.choice(lista_de_despedidas)
-        await ctx.send(f'Adeus, {frase_de_despedida}, jovem.')
+        await msg.send(f'Adeus, {frase_de_despedida}, jovem.')
     else:
-        await ctx.send('Eu não estou no VC, jovem.')
+        await msg.channel.send('Eu não estou no VC, jovem.')
 
 
 
 @bot.command(pass_context= True)
 async def imagembolada(ctx):
     imagem_aleatoria = random.choice(lista_de_imagens)
-    await ctx.send(file= discord.File(path.join("imagens", imagem_aleatoria)))
+    await msg.channel.send(file= discord.File(path.join("imagens", imagem_aleatoria)))
 
 
 @bot.event
 async def on_message(msg):
     # Verificar se a mensagem não tem o próprio bot como autor.
-    #if msg.author.id == msg.channel.me.id:
-    #    return
+    if msg.author.id == bot.user.id:
+        return
+    
+    if msg.content.startswith('!'):
+            if msg.content == "sair":
+                await sair(msg)
+            if msg.content == "!iniciar":
+                await iniciar(msg)
 
+    
     # Verificar se o jogador ainda não começou a partida,
     # o que significa que precisa colocá-lo no estado zero (0).
     if msg.author.id not in partidas:
         partidas[msg.author.id] = 0
 
+    
+    
     # Em ordem de operação:
     # 0) Obter o ID do jogador:
     #    msg.author.id
@@ -132,6 +163,8 @@ async def on_message(msg):
         #   choice(estados[partidas[msg.author.id]]['frases'])
         await msg.channel.send(random.choice(estados[partidas[msg.author.id]]['frases']))
     #
+
+
     # Caso contrário, avisar que a mensagem não avança no jogo
     else:
         #
@@ -140,10 +173,13 @@ async def on_message(msg):
             #
             # ...ajudar com uma dica:
             await msg.channel.send(random.choice(estados[partidas[msg.author.id]]['frases']))
+        
+
+        
         else:
             #
             # Nos estados seguintes, a resposta padrão de HAL:
-            await msg.channel.send('I\'m sorry Dave, I\'m afraid I can\'t do that.')
+            await msg.channel.send('Resposta errada.')
 
 
 
