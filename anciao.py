@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import discord
 from discord import FFmpegPCMAudio
 import random
+import asyncio
 from discord.ext import commands
 load_dotenv()
 
@@ -15,18 +16,30 @@ class MyBot(discord.Client):
 
     async def on_message(self, message):
         # we do not want the bot to reply to itself
+        channel = message.channel
+
         if message.author.id == self.user.id:
             return
+        sent = await message.reply('oiii!!!!111')
+        await sent.add_reaction("✅")
+        await sent.add_reaction("❌")
 
-        if message.content.startswith('.'):
-            await message.reply('bingos bongos',file= discord.File(path.join('imagens', random.choice(imagens))),mention_author=True)
 
 
+        async def check(reaction, user):
+            return user != message.author and str(reaction.emoji) == '✅'
+        
+        try:
+            reaction, user = await client.wait_for('reaction_add', timeout=120.0, check=check)
+        except asyncio.TimeoutError:
+            await channel.send('👎')
+        else:
+            await channel.send('👍')    
 
 
 
 intents = discord.Intents.default()
 intents.message_content = True
 
-client = MyClient(intents=intents)
+client = MyBot(intents=intents)
 client.run(getenv("TOKEN_DO_BOT"))
