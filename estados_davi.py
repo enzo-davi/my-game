@@ -19,7 +19,7 @@ estados = {
     },
     2:{
         "frases":"boa noite",
-        "proximos_estados":{"✅":1
+        "proximos_estados":{"bingos":1
 
     },
     "inventario": {}
