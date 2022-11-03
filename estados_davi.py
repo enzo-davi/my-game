@@ -2,8 +2,8 @@ estados = {
     0:{
         "frases":"oioi hahah", 
         "proximos_estados":{
-            "✅": 1,
-            "❌":2,
+            "bingus": 1,
+            "bongos":2,
             "inventario": {}
             
         }
@@ -27,3 +27,4 @@ estados = {
 }
 partidas = {}
 
+# estados[estado_do_jogador]["frases"]

@@ -70,13 +70,8 @@ class MyBot(discord.Client):
                         pass
                     
                     # Cria uma lista de frases usando o delimitador '|' e envia uma a uma
-                    
 
-                    sent = await msg.channel.send (estados[value]['frases'])
-                    
-                    await sent.add_reaction("✅")
-                    await sent.add_reaction("❌")
-
+                    await msg.channel.send(estados[value]["frases"])
 
                 else:
                     #
@@ -90,20 +85,14 @@ class MyBot(discord.Client):
         
 
 
-        async def check(reaction, user):
-            return user != msg.author and str(reaction.emoji) == '✅'
-        
-            reaction, user = await client.wait_for('reaction_add', check=check)
+     #   async def check(reaction, user):
+      #      return user != msg.author and str(reaction.emoji) == '✅'
+       # 
+        #    reaction, user = await client.wait_for('reaction_add', check=check)
         #except asyncio.TimeoutError:
         #    await channel.send('👎')
         #else:
         #    await channel.send('👍')
-
-
-        if msg.author.id not in partidas:
-            partidas[msg.author.id] = 0           
-
-
 
 intents = discord.Intents.default()
 intents.message_content = True
