@@ -28,16 +28,16 @@ class MyBot(discord.Client):
         if msg.author.bot:
             return
         
-        if autor not in partidas:
+        #LEMBRA DE DESCOMENTAR ISSO DPS if autor not in partidas:
         #
         # Jogador começa no estado 0 com duas chaves
-            partidas[autor] = {
+        partidas[autor] = {
             'estado': 0,
             'inventario': {
                 'chave_prateada',
                 'chave_dourada'
                 }
-            }
+        }
         
 
         estado_do_jogador = estados[partidas[autor]['estado']]
@@ -45,12 +45,22 @@ class MyBot(discord.Client):
         
         for key, value in estado_do_jogador['proximos_estados'].items():
             if fullmatch(key, msg.content):
+                
+                if estado_do_jogador == 2:
+                    exit()
+                
+                
                 #
                 # Verificar se o jogador possui inventário mínimo para avançar
                 if inventario_do_jogador.issuperset(estados[value]['inventario']):
                     #
                     # Atualiza o estado do jogador
                     partidas[autor]['estado'] = value
+                    
+                    
+                    
+
+
                     #
                     # Remove os itens de inventário requisitados
                     #partidas[autor]['inventario'] = inventario_do_jogador.difference(
