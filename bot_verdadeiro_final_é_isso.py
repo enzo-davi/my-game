@@ -1,4 +1,3 @@
-
 from estados_davi import estados, canais_de_voz
 import discord
 from discord.ext import commands
@@ -55,7 +54,7 @@ async def on_message(msg):
         #
         # Pesquisar e apagar o registro no banco - e informar o usuário
         partidas_db.find_one_and_delete({'jogador': autor})
-        await msg.channel.send(frases['reiniciado'])
+        await msg.channel.send("prontinho mano")
         return
     #
     # e fechar todos os canais de bot
@@ -63,7 +62,7 @@ async def on_message(msg):
         #
         # Fechar todos os canais de voz
         [await canais_de_voz[i].disconnect() for i in canais_de_voz.keys()]
-        await msg.channel.send(frases['saindo'])
+        await msg.channel.send("Flw.")
         return
     #
     # Garantir que o autor tem dados de partida
@@ -74,6 +73,8 @@ async def on_message(msg):
     #
     # Coletar os dados persistentes de usuário
     partida = partidas_db.find_one({'jogador': autor})
+    print(partida['estado'])
+    
     #
     # Testar se o canal é pvt (msg.channel.type.name == 'private')
     # e, se for, avisar o jogador e continua o jogo sem áudio
@@ -81,8 +82,8 @@ async def on_message(msg):
         #
         # Avisar ao jogador apenas quando o estado for 0
         if partida['estado'] == 0:
-            await msg.channel.send(frases['canal_privado'])
-            await msg.channel.send(frases['sem_canal_de_voz'])
+            await msg.channel.send("Não consigo entrar no canal pq é privado maoeh")
+            await msg.channel.send("Não tem canal de voz pra eu entrar")
     #
     # Testar se a mensagem foi mandada em um chat de servidor
     # se sim, testar se o jogador está em canal de voz,
@@ -92,14 +93,18 @@ async def on_message(msg):
             if msg.guild.me not in msg.author.voice.channel.members:
                 canais_de_voz[autor] = await msg.author.voice.channel.connect()
         else:
-            await msg.channel.send(frases['sem_canal_de_voz'])
+            await msg.channel.send("ENTRA NUM CANAL")
             return
     #
     # Criar variáveis locais para melhorar legibilidade do código
-    estado_do_jogador = estados[partida['estado']]
+    
+    
+    
+
+
     #
     # Varrer os possíveis próximos estados para validar com a mensagem do usuário
-    for key, value in estado_do_jogador['proximos_estados'].items():
+    for key, value in estados[partida['estado']]['proximos_estados'].items():
         if fullmatch(key, mensagem):
             #
             # Atualiza o estado do jogador
@@ -109,6 +114,15 @@ async def on_message(msg):
                 return_document=pymongo.ReturnDocument.AFTER
             )
             #
+
+        #estado_do_jogador = estados[partida['estado']]   
+        #estado_do_jogador = partida['estado'] 
+
+        if estado_do_jogador == 4000:
+            print(' O jogador esta no estado quatro mil')
+
+
+
             # Se houver um som referente ao estado,
             # toca no canal de voz do jogador
             if msg.channel.type.name != 'private':
@@ -125,13 +139,16 @@ async def on_message(msg):
                 await msg.channel.send(file=discord.File(arquivo_de_imagem))
             #
             # Criar uma lista de frases usando o delimitador '|' e enviar uma a uma
-            [await msg.channel.send(i) for i in choice(estados[value]['frases']).split('|')]
+            #[await msg.channel.send()i for i in choice(estados[value]['frases']).split('|')]
+            #  return
+            await msg.channel.send(estados[partida['estado']]["frases"])
             return
-    #
+
     # Sempre responder ao usuário (dica ou não)
     if partida['estado'] == 0:
-        await msg.channel.send(choice(estado_do_jogador['frases']))
+        await msg.channel.send(estados[partida['estado']]['frases'])
     else:
-        await msg.channel.send(frases['erro'])
+        pass
+        #await frase genérica...
 
-bot.run(getenv('DISCORD_TOKEN', default=''))
+bot.run(getenv('TOKEN_DO_BOT', default=''))

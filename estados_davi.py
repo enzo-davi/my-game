@@ -2,192 +2,184 @@ estados = {
     
   #Tutorial
   
-  0:{
-        "frases":"Iniciar o jogo?\n\n SIM(1)\n NÃO(2)\n Pular Tutorial(3)", 
+  0: {
+        "frases":"Iniciar o jogo?\n\n SIM(1)\n NÃO(2)\n Pular Tutorial(3)\n", 
         "proximos_estados":{
-            "1": 1,
-            "2":2,
-            "3":4000,
-            "inventario":{}
-            
-        }
-},
-    1:{
-    "frases":"Bem vindo cidadão, este é um programa experimental desenvolvido pelo governo com o intuito de  ₦ ₧ ₨ ₪ ₫ € ₭ ₮ ₯\n\n Iremos te fazer algumas perguntas.\n\n Prosseguir(1). ",
-    "proximos_estados":{
-        "1":3,
+        "1":1,
+        "2":2,
+        "3":4000,
+        },
         "inventario":{}
-        }
+            
 },
+
+    1: {
+        "frases":"Bem vindo(a)!\n\n Nesse Quiz será feito 30 perguntas variando de nível fácil a difícil, e seu objetivo é acertar o maior número possível. Você terá respostas de múltipla escolha, no qual apenas UMA estará correta. Para escolher uma alternativa digite um dos números referentes a alternativa.\n\n Continuar tutorial(1)\n ", 
+        "proximos_estados":{
+        "1":3,
+        },
+        "inventario":{}
+},
+
     2:{
         "frases":"Desconectando.",
-        "proximos_estados":{
+        "proximos_estados":{},
         "inventario":{}
-        
-    }
-        
 },
+
     3:{
-        "frases":'Como você ouviu falar do nosso programa?\n\n Notícias(1)\n No Zap(2)',
+        "frases":'Quantas asas tem um pombo ?\n\n Duas(1)\n Dez(2)\n Vinte(3)\n Quarenta(4)\n',
         "proximos_estados":{
         "1":4,
         "2":5,
+        "3":5,
+        "4":5,
+        },
         "inventario":{}
-        }
-  
 },
+
     4:{
-      
-      "frases":"Como você dorme?\n\nDe ladinho(1)\n\nBarriga pra cima(2)",
-      "proximos_estados":{
-        "1":5,
-        "2":5,
-        "inventario":{}
-      }
-},
-    5:{
-      
-      "frases":"Como você dorme?\n\nDe ladinho(1)\n\nBarriga pra cima(2)",
-      "proximos_estados":{
+        "frases":"Acertou!\n\n Continuar(1)\n",
+        "proximos_estados":{
         "1":6,
-        "2":6,
-        
+        },
         "inventario":{}
-      }
-      
 },
-    6:{
+
+    5:{
+        "frases":"Errou!\n\n Continuar(1)\n",
+        "proximos_estados":{
+        "1":6,
+        },
+        "inventario":{}
+},
       
-      "frases":"Nenhuma das suas escolhas até agora importaram, era só pra você se acostumar com o jogo, agora o jogo começa.\n\nProsseguir(1)\nChorar(2)",
+    6:{
+      "frases":" Agora que você entendeu como funciona, iniciará o Quiz definitivo, no qual contabilizará seus acertos.\n\n Finalizar tutorial(1)\n",
       "proximos_estados":{
         "1":4000,
-        "2":4000,
-        
+        },
         "inventario":{}
-      }
-# Fim do tutorial      
 },
 
-
+# Fim do tutorial      
 
 #Estados especiais de acerto e derrota
   
     8:{
-      "frases":"",
-      "proximos_estados":{
-      "1":4000
-      }
-},
-    9:{
-      "frases":"",
-      "proximos_estados":{
+        "frases":"Acertou!\n\n Continuar(1)\n",
+        "proximos_estados":{
         "1":4000
-      }
-
+        }
 },
 
-  
-
+    9:{
+        "frases":"Errou!\n\n Continuar(1)\n",
+        "proximos_estados":{
+        "1":4000
+        }
+},
 
 #estados do GAME
   
     10:{
-      
-      "frases":"quantas asas tem um pássaro\n\n Duas(1)\n cinquenta(2)\n",
-      "proximos_estados":{
-        "1":8,
+        "frases":"Quantos paises são reconhecidos pela ONU ?\n\n 206(1)\n 211(2)\n 193(3)\n 184(4)\n",
+        "proximos_estados":{
+        "1":9,
         "2":9,
-        
+        "3":8,
+        "4":9,
+        },
         "inventario":{}
-      }
-      
 },
+
     11:{
       
-      "frases":"Quantos braços saudáveis o enzo tem\n\n Um(1)\n Dois(2)\n",
+      "frases":"Quantas copas tem o Brazil ?\n\n 4(1)\n 5(2)\n 6(3)\n Nenhuma(4)\n",
       "proximos_estados":{
-        "1":8,
-        "2":9,
-        
+        "1":9,
+        "2":8,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      }
-      
 },  
+
     12:{
-      
-      "frases":"Qual a cor do céu?\n\n Cinza(1)\n Azul(2)\n",
+        "frases":"Quantos estados tem o Brasil, contando o distrito federal ?\n\n 25(1)\n 26(2)\n 27(3)\n 28(4)\n",
       "proximos_estados":{
         "1":9,
-        "2":8,
-        
+        "2":9,
+        "3":8,
+        "4":9,
+        },
         "inventario":{}
-      }
-      
 },
+
     13:{
-      
-      "frases":"Quantos tijolos tem o Ifsc?\n\n Varios mano(1)\n Nenhum(2)\n",
-      "proximos_estados":{
-        "1":8,
-        "2":9,
-        
-        "inventario":{}
-      }
-      
-},  
-    14:{
-      
-      "frases":"Qual o nome\n\n Biscoito(1)\n Bolacha(2)\n",
-      "proximos_estados":{
+        "frases":"Quem foi o único Presidente brasileiro eleito com sufrágio universal que nasceu em São Paulo ?\n\n Lula(1)\n Collor(2)\n Sarnei(3)\n Bolsonaro(4)\n",
+        "proximos_estados":{
         "1":9,
-        "2":8,
-        
+        "2":9,
+        "3":9,
+        "4":8,
+        },
         "inventario":{}
-      }
-      
-},
-    15:{
-      
-      "frases":"O que você merece\n\n Nada(1)\n Tudo(2)\n",
-      "proximos_estados":{
+},  
+
+    14:{
+        "frases":"Qual a capital da Croácia ?\n\n Zagrebe(1)\n Berlim(2)\n Saravejo(3)\n Belgrado(4)",
+        "proximos_estados":{
         "1":8,
         "2":9,
-        
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      }
-      
 },
+
+    15:{
+        "frases":"Qual das alternativas não é uma planta ?\n\n Gigoga(1)\n Congonha(2)\n Lírio Almiscarado(3)\n Gafanhoto(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":8,
+        },
+        "inventario":{}
+},
+
     16:{
-      
-      "frases":"16",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
+        "frases":"Quantos continentes tem no planeta terra ?\n\n 4(1)\n 5(2)\n 6(3)\n Nehuma das alternativas(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":8,
+        "4":9,
+        },
         "inventario":{}
-      }
-      
 },  
+
     17:{
-      
-      "frases":"17",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
+        "frases":"Dia da independência do Brasil ?\n\n 22(1)\n 17(2)\n 13(3)\n 11(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":8,
+        },
         "inventario":{}
-      }
-      
 },
+
     18:{
       
       "frases":"18",
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },  
     19:{
@@ -196,9 +188,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 }, 
     20:{
@@ -207,9 +199,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 }, 
     21:{
@@ -218,9 +210,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     22:{
@@ -229,9 +221,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },  
     23:{
@@ -240,9 +232,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     24:{
@@ -251,9 +243,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },  
     25:{
@@ -262,9 +254,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     26:{
@@ -273,9 +265,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     27:{
@@ -284,9 +276,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },  
     28:{
@@ -295,9 +287,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     29:{
@@ -306,9 +298,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },  
     30:{
@@ -317,9 +309,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 }, 
     31:{
@@ -328,9 +320,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 }, 
     32:{
@@ -339,9 +331,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     33:{
@@ -350,9 +342,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },  
     34:{
@@ -361,9 +353,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     35:{
@@ -372,9 +364,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },  
     36:{
@@ -383,9 +375,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     37:{
@@ -394,9 +386,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
     38:{
@@ -405,9 +397,9 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },  
     39:{
@@ -416,470 +408,19 @@ estados = {
       "proximos_estados":{
         "1":4000,
         "2":4000,
-        
+      },
         "inventario":{}
-      }
+      
       
 },
-    40:{
-      
-      "frases":"18",estados = {
+
+    4000:{
+        "frases":"teste",
+        "proximos_estados": {}
+
+    
+},
+}   
     
   #Tutorial
-  
-  0:{
-        "frases":"Iniciar o jogo?\n\n SIM(1)\n NÃO(2)\n Pular Tutorial(3)", 
-        "proximos_estados":{
-            "1": 1,
-            "2":2,
-            "3":4000,
-            "inventario":{}
-            
-        }
-},
-    1:{
-    "frases":"Bem vindo cidadão, este é um programa experimental desenvolvido pelo governo com o intuito de  ₦ ₧ ₨ ₪ ₫ € ₭ ₮ ₯\n\n Iremos te fazer algumas perguntas.\n\n Prosseguir(1). ",
-    "proximos_estados":{
-        "1":3,
-        "inventario":{}
-        }
-},
-    2:{
-        "frases":"Desconectando.",
-        "proximos_estados":{
-        "inventario":{}
-        
-    }
-        
-},
-    3:{
-        "frases":'Como você ouviu falar do nosso programa?\n\n Notícias(1)\n No Zap(2)',
-        "proximos_estados":{
-        "1":4,
-        "2":5,
-        "inventario":{}
-        }
-  
-},
-    4:{
-      
-      "frases":"Como você dorme?\n\nDe ladinho(1)\n\nBarriga pra cima(2)",
-      "proximos_estados":{
-        "1":5,
-        "2":5,
-        "inventario":{}
-      }
-},
-    5:{
-      
-      "frases":"Como você dorme?\n\nDe ladinho(1)\n\nBarriga pra cima(2)",
-      "proximos_estados":{
-        "1":6,
-        "2":6,
-        
-        "inventario":{}
-      }
-      
-},
-    6:{
-      
-      "frases":"Nenhuma das suas escolhas até agora importaram, era só pra você se acostumar com o jogo, agora o jogo começa.\n\nProsseguir(1)\nChorar(2)",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-# Fim do tutorial      
-},
-
-
-
-#Estados especiais de acerto e derrota
-  
-    8:{
-      "frases":"",
-      "proximos_estados":{
-      "1":4000
-      }
-},
-    9:{
-      "frases":"",
-      "proximos_estados":{
-        "1":4000
-      }
-
-},
-
-  
-
-
-#estados do GAME
-  
-    10:{
-      
-      "frases":"quantas asas tem um pássaro\n\n Duas(1)\n cinquenta(2)\n",
-      "proximos_estados":{
-        "1":8,
-        "2":9,
-        
-        "inventario":{}
-      }
-      
-},
-    11:{
-      
-      "frases":"Quantos braços saudáveis o enzo tem\n\n Um(1)\n Dois(2)\n",
-      "proximos_estados":{
-        "1":8,
-        "2":9,
-        
-        "inventario":{}
-      }
-      
-},  
-    12:{
-      
-      "frases":"Qual a cor do céu?\n\n Cinza(1)\n Azul(2)\n",
-      "proximos_estados":{
-        "1":9,
-        "2":8,
-        
-        "inventario":{}
-      }
-      
-},
-    13:{
-      
-      "frases":"Quantos tijolos tem o Ifsc?\n\n Varios mano(1)\n Nenhum(2)\n",
-      "proximos_estados":{
-        "1":8,
-        "2":9,
-        
-        "inventario":{}
-      }
-      
-},  
-    14:{
-      
-      "frases":"Qual o nome\n\n Biscoito(1)\n Bolacha(2)\n",
-      "proximos_estados":{
-        "1":9,
-        "2":8,
-        
-        "inventario":{}
-      }
-      
-},
-    15:{
-      
-      "frases":"O que você merece\n\n Nada(1)\n Tudo(2)\n",
-      "proximos_estados":{
-        "1":8,
-        "2":9,
-        
-        "inventario":{}
-      }
-      
-},
-    16:{
-      
-      "frases":"16",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    17:{
-      
-      "frases":"17",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    18:{
-      
-      "frases":"18",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    19:{
-      
-      "frases":"19",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-}, 
-    20:{
-      
-      "frases":"20",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-}, 
-    21:{
-      
-      "frases":"21",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    22:{
-      
-      "frases":"22",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    23:{
-      
-      "frases":"23",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    24:{
-      
-      "frases":"24",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    25:{
-      
-      "frases":"25",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    26:{
-      
-      "frases":"26",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    27:{
-      
-      "frases":"27",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    28:{
-      
-      "frases":"28",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    29:{
-      
-      "frases":"29",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    30:{
-      
-      "frases":"30",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-}, 
-    31:{
-      
-      "frases":"31",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-}, 
-    32:{
-      
-      "frases":"10",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    33:{
-      
-      "frases":"11",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    34:{
-      
-      "frases":"12",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    35:{
-      
-      "frases":"13",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    36:{
-      
-      "frases":"14",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    37:{
-      
-      "frases":"15",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    38:{
-      
-      "frases":"16",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    39:{
-      
-      "frases":"17",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},
-    40:{
-      
-      "frases":"18",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    
-
-
-
-
-
-
-  
-}
-partidas = {}
-canais_de_voz = {}
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-        
-        "inventario":{}
-      }
-      
-},  
-    
-
-
-
-}
-partidas = {}
 canais_de_voz = {}
