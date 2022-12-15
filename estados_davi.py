@@ -128,7 +128,7 @@ estados = {
 },  
 
     14:{
-        "frases":"Qual a capital da Croácia ?\n\n Zagrebe(1)\n Berlim(2)\n Saravejo(3)\n Belgrado(4)",
+        "frases":"Qual é a capital da Croácia ?\n\n Zagrebe(1)\n Berlim(2)\n Saravejo(3)\n Belgrado(4)",
         "proximos_estados":{
         "1":8,
         "2":9,
@@ -163,6 +163,94 @@ estados = {
     17:{
         "frases":"Dia da independência do Brasil ?\n\n 22(1)\n 17(2)\n 13(3)\n 11(4)\n",
         "proximos_estados":{
+        "1":8,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
+        "inventario":{}
+},
+
+    18:{
+        "frases":"Quantos planetas tem no sistema solar ?\n\n 7(1)\n 8(2)\n 9(3)\n 10(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":8,
+        "3":9,
+        "4":9,
+        },
+        "inventario":{}
+},  
+
+    19:{
+        "frases":"Quem assinou a Lei Aurea ?\n\n Dom Pedro I(1)\n Dom Pedro II(2)\n Dom João VI(3)\n Princesa Isabel(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":8,
+        },
+        "inventario":{}
+}, 
+
+    20:{
+        "frases":"Quantos filmes tem a franquia Veloses e Furiosos até o ano de 2022 ?\n\n 7(1)\n 8(2)\n 9(3)\n 10(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":8,
+        "4":9,
+        },
+        "inventario":{}
+}, 
+
+    21:{
+        "frases":"Em que ano começou e terminou a ditadura militar no Brasil ?\n\n 1914-1918(1)\n 1964-1985(2)\n 1939-1945(3)\n 1947-1991(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":8,
+        "3":9,
+        "4":9,
+      },
+      "inventario":{}
+},
+
+    22:{
+        "frases":"Qual o melhor jogo do ano 2022 ?\n\n God of War Ragnarok(1)\n Horizon Forbidden West(2)\n Elden ring(3)\n Nenhuma das alternativas(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":8,
+        "4":9,
+        },
+        "inventario":{}
+},  
+
+    23:{
+        "frases":"Qual dos impérios a seguir não possui um idioma escrito ?\n\n Inca(1)\n Azteca(2)\n Egípcio(3)\n Romano(4)\n",
+        "proximos_estados":{
+        "1":8,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
+        "inventario":{}
+},
+
+    24:{
+        "frases":"Até 1923, como era chamada a cidade turca de Istambul?\n\n Tijolo(1)\n Goldenvale(2)\n Constantinopla(3)\n Edensville(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":8,
+        "4":9,
+        },
+        "inventario":{}
+},  
+
+    25:{
+        "frases":"Quantos dias a terra leva para orbitar o sol, em ano bissesto ?\n\n 7(1)\n 31(2)\n 365(1)\n 366(4)\n",
+        "proximos_estados":{
         "1":9,
         "2":9,
         "3":9,
@@ -171,260 +259,167 @@ estados = {
         "inventario":{}
 },
 
-    18:{
-      
-      "frases":"18",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
-        "inventario":{}
-      
-      
-},  
-    19:{
-      
-      "frases":"19",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
-        "inventario":{}
-      
-      
-}, 
-    20:{
-      
-      "frases":"20",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
-        "inventario":{}
-      
-      
-}, 
-    21:{
-      
-      "frases":"21",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
-        "inventario":{}
-      
-      
-},
-    22:{
-      
-      "frases":"22",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
-        "inventario":{}
-      
-      
-},  
-    23:{
-      
-      "frases":"23",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
-        "inventario":{}
-      
-      
-},
-    24:{
-      
-      "frases":"24",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
-        "inventario":{}
-      
-      
-},  
-    25:{
-      
-      "frases":"25",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
-        "inventario":{}
-      
-      
-},
     26:{
-      
-      "frases":"26",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Qual é o menor país do mundo ?\n\n Mônaco(1)\n Vaticano(2)\n Nauru(3)\n Gales(4)",
+        "proximos_estados":{
+        "1":9,
+        "2":8,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },
+
     27:{
-      
-      "frases":"27",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":" Qual é o rio mais longo do mundo ?\n\n Nilo(1)\n Amazonas(2)\n Mississippi(3)\n Yangtzé(4)\n",
+        "proximos_estados":{
+        "1":8,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },  
+
     28:{
-      
-      "frases":"28",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Onde é o lugar natural mais baixo do planeta Terra ?\n\n Lago Baikal(1)\n Fossa das Marianas(2)\n Kidd Mine(3)\n Nehuma das alternativas(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":8,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },
+
     29:{
-      
-      "frases":"29",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Qual idioma tem o maior número de palavras (de acordo com dicionários) ?\n\n Inglês(1)\n Português(2)\n Árabe(3)\n Japonẽs(4)\n ",
+        "proximos_estados":{
+        "1":8,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },  
+
     30:{
-      
-      "frases":"30",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Normalmente quantos litros de sangue uma pessoa tem, e quanto é retirado em uma doação de sangue ?\n\n De 4 a 6L, e são retirados 450ml(1)\n De 2 a 4L, e são retirados 450ml(2)\n De 4 a 6L, e são retirados 1L(3)\n De 2 a 4L, e são retirados 1L(4)\n",
+        "proximos_estados":{
+        "1":8,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 }, 
+
     31:{
-      
-      "frases":"31",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"De quem é a frase *penso logo existo* ?\n\n Platão(1)\n Sócrates(2)\n Galileu(3)\n Descartes(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":8,
+        },
         "inventario":{}
-      
-      
 }, 
+
     32:{
-      
-      "frases":"10",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Onde foi inventado o chuveiro elétrico ?\n\n França(1)\n Suécia(2)\n Brasil(3)\n Itália(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":8,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },
+
     33:{
-      
-      "frases":"11",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Qual o livro mais vendido do mundo após a bíblia ?\n\n Dom Quixote(1)\n Senhor dos Anéis(2)\n O Pequeno Príncipe(3)\n Ela, a feiticeira(4)\n",
+        "proximos_estados":{
+        "1":8,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },  
+
     34:{
-      
-      "frases":"12",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Atualmente quantos elementos químicos a tabela periódica possui ?\n\n 99(1)\n 108(2)\n 106(3)\n 118(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":8,
+        },
         "inventario":{}
-      
-      
 },
+
     35:{
-      
-      "frases":"13",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Quais os países que têm a maior e a menor expectativa de vida do mundo ?\n\n Japão e Serra Leoa(1)\n Austrália e Afeganistão(2)\n Itália e Chade(3)\n Brasil e Congo(4)\n",
+        "proximos_estados":{
+        "1":8,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },  
+
     36:{
-      
-      "frases":"14",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Quais as duas datas que são comemoradas em novembro ?\n\n Independência do Brasil e Dia da Bandeira(1)\n Proclamação da República e Dia Nacional da Consciência Negra(2)\n Dia do Médico e Dia de São Lucas(3)\n Dia de Finados e Dia Nacional do Livro(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":8,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },
+
     37:{
-      
-      "frases":"15",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":" Quanto tempo a luz do Sol demora para chegar à Terra ?\n\n 12 minutos(1)\n 1 dia(2)\n 12 horas(3)\n 8 minutos(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":8,
+        },
         "inventario":{}
-      
-      
 },
+
     38:{
-      
-      "frases":"16",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":"Qual a velocidade da luz ?\n\n 300 000 000 metros por segundo (m/s)(1)\n 150 000 000 m/s(2)\n 199 792 458 m/s(3)\n 299 792 458 m/s(4)",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":8,
+        },
         "inventario":{}
-      
-      
 },  
+
     39:{
-      
-      "frases":"17",
-      "proximos_estados":{
-        "1":4000,
-        "2":4000,
-      },
+        "frases":" Qual destes países é transcontinental ?\n\n Rússia(1)\n Filipinas(2)\n Marrocos(3)\n Groenlândia(4)\n",
+        "proximos_estados":{
+        "1":8,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
         "inventario":{}
-      
-      
 },
 
     4000:{
         "frases":"teste",
-        "proximos_estados": {
-          '1': 0
-        },
+        "proximos_estados": {},
         "inventario":{}
-    
 },
+
 }   
-    
 
-
-  #Tutorial
+#Tutorial
 canais_de_voz = {}

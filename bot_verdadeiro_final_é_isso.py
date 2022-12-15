@@ -70,7 +70,14 @@ async def on_message(msg):
     if partidas_db.count_documents({'jogador': autor}) == 0:
         #
         # Jogador começa no estado 0 e inventário vazio
-        partidas_db.insert_one({'jogador': autor, 'estado': 0,'aleatorio':0})
+        partidas_db.insert_one({'jogador': autor, 
+                                'estado': 0,
+                                'aleatorio':0, 
+                                'numero_de_perguntas':0,
+                                'estados_passados':[],
+                                'acertos':0,
+                                'erros':0,
+                                })
         
     #
     # Coletar os dados persistentes de usuário
@@ -78,6 +85,7 @@ async def on_message(msg):
     
     print(f'partida {msg.author}: {partida["estado"]}')
     print(estados[partida['estado']]['proximos_estados'].items())
+    
     #
     # Testar se o canal é pvt (msg.channel.type.name == 'private')
     # e, se for, avisar o jogador e continua o jogo sem áudio
@@ -99,37 +107,96 @@ async def on_message(msg):
             await msg.channel.send("ENTRA NUM CANAL")
             return
 
-
     
         
-
+    
 
     # Varrer os possíveis próximos estados para validar com a mensagem do usuário
     for key, value in estados[partida['estado']]['proximos_estados'].items():
         if fullmatch(key, mensagem):
             #
             # Atualiza o estado do jogador
-            global scope
             partida = partidas_db.find_one_and_update(
                 {'jogador': autor},
                 {'$set': {'estado': value}},
                 return_document=pymongo.ReturnDocument.AFTER
             )
             print('estado atualizado')
-            if partida['estado'] == '4000':
-                print('o jogador esta no estado cuatro mil')
-            #
+
+            #Se o estado for 4000 é pra redirecionar o jogador para uma pergunta aleatória
+            if partida['estado'] == 4000:
+                # se for a primeira vez do jogador entrando no estado quatro mil o bot 
+                # cria uma lista com o número de perguntas que o jogador vai ter
+                if partida['aleatorio'] == 0:
+                    #cria a lista que vai ser inserida no numero de perguntas
+                    numeros = []
+                    for number in range(1,6):
+                        numeros.append(number)
+                    # muda o aleatorio pra 1 pro jogador não entrar mais dentro desse if e 
+                    # coloca o numero de perguntas no banco de dados do jogador
+                    partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'aleatorio':1,'numero_de_perguntas': numeros}},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
+
+
+
+                    print(partida['numero_de_perguntas'])
+                
+
+                if partida['numero_de_perguntas'] > 0:
+
+                    estado_aleatorio = random.randint(10,35)
+
+                    if estado_aleatorio in partida['estados_passados']:
+                        while estado_aleatorio in partida['estados_passados']:
+
+                            partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'estados_passados': partida['estados_passados'].append(estado_aleatorio)}},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
+                            estado_aleatorio = random.randint(10, 39)
+
+
+
+                    partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'estado': estado_aleatorio}},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
+
+                else:
+                    erros = partida['erros']
+                    acertos = partida['acertos']
+
+                    await msg.channel.send(f'acertoVocê concluiu o quiz e acertou {acertos} de {erros + acertos}!')
+                    
+
+
+
+            if partida['estado'] == 8:
+                partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'acertos': partida['acertos'] + 1, 'numero_de_perguntas': partida['numero_de_perguntas'] - 1}},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
+
+            if partida['estado'] == 9:
+                partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'erros': partida['erros'] + 1, 'numero_de_perguntas': partida['numero_de_perguntas'] - 1}},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
+
+
+
+
+
 
         #estado_do_jogador = estados[partida['estado']]   
         #estado_do_jogador = partida['estado'] 
 
-        
-
-
 
             # Se houver um som referente ao estado,
             # toca no canal de voz do jogador
-        if msg.channel.type.name != 'private':
+            if msg.channel.type.name != 'private':
                 arquivo_de_som = str(value) + '.mp3'
                 if exists(arquivo_de_som):
                     #
@@ -138,8 +205,8 @@ async def on_message(msg):
                     canais_de_voz[autor].play(som_opus)
             #
             # Se houver uma imagem referente ao estado, enviar
-        arquivo_de_imagem = str(value) + '.png'
-        if exists(arquivo_de_imagem):
+            arquivo_de_imagem = str(value) + '.png'
+            if exists(arquivo_de_imagem):
                 await msg.channel.send(file=discord.File(arquivo_de_imagem))
             #
             # Criar uma lista de frases usando o delimitador '|' e enviar uma a uma
@@ -147,14 +214,14 @@ async def on_message(msg):
             #  return
 
             
-        await msg.channel.send(estados[partida['estado']]["frases"])
-        return
+            await msg.channel.send(estados[partida['estado']]["frases"])
+            return
 
     # Sempre responder ao usuário (dica ou não)
     #if partida['estado'] == 0:
-     #   await msg.channel.send(estados[partida['estado']]['frases'])
+    #   await msg.channel.send(estados[partida['estado']]['frases'])
     #else:
-    await msg.channel.send({estados[partida["estado"]]["frases"]})
+    await msg.channel.send(estados[partida["estado"]]["frases"])
 
         #await frase genérica...
 
