@@ -16,7 +16,7 @@ estados = {
     1: {
         "frases":"Bem vindo(a)!\n\n Nesse Quiz será feito 30 perguntas variando de nível fácil a difícil, e seu objetivo é acertar o maior número possível. Você terá respostas de múltipla escolha, no qual apenas UMA estará correta. Para escolher uma alternativa digite um dos números referentes a alternativa.\n\n Continuar tutorial(1)\n ", 
         "proximos_estados":{
-        "1":3,
+        "1":3
         },
         "inventario":{}
 },
@@ -416,11 +416,15 @@ estados = {
 
     4000:{
         "frases":"teste",
-        "proximos_estados": {}
-
+        "proximos_estados": {
+          '1': 0
+        },
+        "inventario":{}
     
 },
 }   
     
+
+
   #Tutorial
 canais_de_voz = {}

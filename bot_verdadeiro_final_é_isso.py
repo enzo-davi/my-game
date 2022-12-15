@@ -1,5 +1,6 @@
 from estados_davi import estados, canais_de_voz
 import discord
+import random
 from discord.ext import commands
 from random import choice
 from re import fullmatch
@@ -36,7 +37,7 @@ async def on_ready():
 
 @bot.event
 async def on_message(msg):
-    #
+    # autor = msg.author 
     # Testar se o autor é um bot (msg.author.bot é verdadeiro)
     # e, se for, simplesmente ignorar a mensagem
     if msg.author.bot:
@@ -69,12 +70,14 @@ async def on_message(msg):
     if partidas_db.count_documents({'jogador': autor}) == 0:
         #
         # Jogador começa no estado 0 e inventário vazio
-        partidas_db.insert_one({'jogador': autor, 'estado': 0})
+        partidas_db.insert_one({'jogador': autor, 'estado': 0,'aleatorio':0})
+        
     #
     # Coletar os dados persistentes de usuário
     partida = partidas_db.find_one({'jogador': autor})
-    print(partida['estado'])
     
+    print(f'partida {msg.author}: {partida["estado"]}')
+    print(estados[partida['estado']]['proximos_estados'].items())
     #
     # Testar se o canal é pvt (msg.channel.type.name == 'private')
     # e, se for, avisar o jogador e continua o jogo sem áudio
@@ -82,7 +85,7 @@ async def on_message(msg):
         #
         # Avisar ao jogador apenas quando o estado for 0
         if partida['estado'] == 0:
-            await msg.channel.send("Não consigo entrar no canal pq é privado maoeh")
+            await msg.channel.send("Não consigo entrar no canal pq é privado")
             await msg.channel.send("Não tem canal de voz pra eu entrar")
     #
     # Testar se a mensagem foi mandada em um chat de servidor
@@ -95,37 +98,38 @@ async def on_message(msg):
         else:
             await msg.channel.send("ENTRA NUM CANAL")
             return
-    #
-    # Criar variáveis locais para melhorar legibilidade do código
-    
-    
-    
 
 
-    #
+    
+        
+
+
     # Varrer os possíveis próximos estados para validar com a mensagem do usuário
     for key, value in estados[partida['estado']]['proximos_estados'].items():
         if fullmatch(key, mensagem):
             #
             # Atualiza o estado do jogador
+            global scope
             partida = partidas_db.find_one_and_update(
                 {'jogador': autor},
                 {'$set': {'estado': value}},
                 return_document=pymongo.ReturnDocument.AFTER
             )
+            print('estado atualizado')
+            if partida['estado'] == '4000':
+                print('o jogador esta no estado cuatro mil')
             #
 
         #estado_do_jogador = estados[partida['estado']]   
         #estado_do_jogador = partida['estado'] 
 
-        if estado_do_jogador == 4000:
-            print(' O jogador esta no estado quatro mil')
+        
 
 
 
             # Se houver um som referente ao estado,
             # toca no canal de voz do jogador
-            if msg.channel.type.name != 'private':
+        if msg.channel.type.name != 'private':
                 arquivo_de_som = str(value) + '.mp3'
                 if exists(arquivo_de_som):
                     #
@@ -134,21 +138,24 @@ async def on_message(msg):
                     canais_de_voz[autor].play(som_opus)
             #
             # Se houver uma imagem referente ao estado, enviar
-            arquivo_de_imagem = str(value) + '.png'
-            if exists(arquivo_de_imagem):
+        arquivo_de_imagem = str(value) + '.png'
+        if exists(arquivo_de_imagem):
                 await msg.channel.send(file=discord.File(arquivo_de_imagem))
             #
             # Criar uma lista de frases usando o delimitador '|' e enviar uma a uma
             #[await msg.channel.send()i for i in choice(estados[value]['frases']).split('|')]
             #  return
-            await msg.channel.send(estados[partida['estado']]["frases"])
-            return
+
+            
+        await msg.channel.send(estados[partida['estado']]["frases"])
+        return
 
     # Sempre responder ao usuário (dica ou não)
-    if partida['estado'] == 0:
-        await msg.channel.send(estados[partida['estado']]['frases'])
-    else:
-        pass
+    #if partida['estado'] == 0:
+     #   await msg.channel.send(estados[partida['estado']]['frases'])
+    #else:
+    await msg.channel.send({estados[partida["estado"]]["frases"]})
+
         #await frase genérica...
 
 bot.run(getenv('TOKEN_DO_BOT', default=''))
