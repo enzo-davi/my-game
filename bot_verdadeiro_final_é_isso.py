@@ -129,9 +129,8 @@ async def on_message(msg):
                 # cria uma lista com o número de perguntas que o jogador vai ter
                 if partida['aleatorio'] == 0:
                     #cria a lista que vai ser inserida no numero de perguntas
-                    numeros = []
-                    for number in range(1,6):
-                        numeros.append(number)
+                    numeros = 5
+                    
                     # muda o aleatorio pra 1 pro jogador não entrar mais dentro desse if e 
                     # coloca o numero de perguntas no banco de dados do jogador
                     partida = partidas_db.find_one_and_update({'jogador':autor},
@@ -143,16 +142,16 @@ async def on_message(msg):
 
                     print(partida['numero_de_perguntas'])
                 
-
+                # Checar se o número de perguntas não acabou
                 if partida['numero_de_perguntas'] > 0:
-
-                    estado_aleatorio = random.randint(10,35)
-
+                    # Escolhe um número aleatório com o número de estados.
+                    estado_aleatorio = random.randint(10,39)
+                    # Se o número já tiver sido escolhido antes continue ele continua sorteando.
                     if estado_aleatorio in partida['estados_passados']:
                         while estado_aleatorio in partida['estados_passados']:
-
+                            
                             partida = partidas_db.find_one_and_update({'jogador':autor},
-                    {'$set':{'estados_passados': partida['estados_passados'].append(estado_aleatorio)}},
+                    {'$set':{'estados_passados': partida['estados_passados'].append(estado_aleatorio), 'numero_de_perguntas': partida['numero_de perguntas'] - 1}},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
                             estado_aleatorio = random.randint(10, 39)
@@ -163,22 +162,24 @@ async def on_message(msg):
                     {'$set':{'estado': estado_aleatorio}},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
-
+                #Se o número de perguntas for 0 quer dizer que o jogador acabou o quiz, 
+                # então os erros e acertos são contabilizados.
                 else:
                     erros = partida['erros']
                     acertos = partida['acertos']
 
-                    await msg.channel.send(f'acertoVocê concluiu o quiz e acertou {acertos} de {erros + acertos}!')
+                    await msg.channel.send(f'Você concluiu o quiz e acertou {acertos} de {erros + acertos}!\n\n')
                     
 
 
-
+            #Quando o estado for 8(acertos) adicione acertos e subtraia do número de perguntas
             if partida['estado'] == 8:
                 partida = partidas_db.find_one_and_update({'jogador':autor},
                     {'$set':{'acertos': partida['acertos'] + 1, 'numero_de_perguntas': partida['numero_de_perguntas'] - 1}},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
-
+            
+            #Quando o estado for 9(erros) adicione erros e subtraia do número de perguntas
             if partida['estado'] == 9:
                 partida = partidas_db.find_one_and_update({'jogador':autor},
                     {'$set':{'erros': partida['erros'] + 1, 'numero_de_perguntas': partida['numero_de_perguntas'] - 1}},

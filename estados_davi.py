@@ -414,10 +414,18 @@ estados = {
 },
 
     4000:{
-        "frases":"teste",
-        "proximos_estados": {},
+        'frases':'Digite "recomeçar" para limpar seu progresso e jogar de novo ou "1" Para receber seu Prêmio',
+        "proximos_estados": {
+        "1":4001,
+        },
         "inventario":{}
 },
+    4001:{
+        'frases':"colocar algo legal aqui depois" ,
+        'proximos_estados':{},
+        "inventario":{}
+},
+
 
 }   
 
