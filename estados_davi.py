@@ -1,8 +1,8 @@
 estados = {
     
-  #Tutorial
-  
-  0: {
+#Tutorial
+
+    0: {
         "frases":"Iniciar o jogo?\n\n SIM(1)\n NÃO(2)\n Pular Tutorial(3)\n", 
         "proximos_estados":{
         "1":1,
@@ -53,10 +53,10 @@ estados = {
         },
         "inventario":{}
 },
-      
+
     6:{
-      "frases":" Agora que você entendeu como funciona, iniciará o Quiz definitivo, no qual contabilizará seus acertos.\n\n Finalizar tutorial(1)\n",
-      "proximos_estados":{
+    "frases":" Agora que você entendeu como funciona, iniciará o Quiz definitivo, no qual contabilizará seus acertos.\n\n Finalizar tutorial(1)\n",
+    "proximos_estados":{
         "1":4000,
         },
         "inventario":{}
@@ -65,7 +65,7 @@ estados = {
 # Fim do tutorial      
 
 #Estados especiais de acerto e derrota
-  
+
     8:{
         "frases":"Acertou!\n\n Continuar(1)\n",
         "proximos_estados":{
@@ -81,7 +81,7 @@ estados = {
 },
 
 #estados do GAME
-  
+
     10:{
         "frases":"Quantos paises são reconhecidos pela ONU ?\n\n 206(1)\n 211(2)\n 193(3)\n 184(4)\n",
         "proximos_estados":{
@@ -94,9 +94,8 @@ estados = {
 },
 
     11:{
-      
-      "frases":"Quantas copas tem o Brazil ?\n\n 4(1)\n 5(2)\n 6(3)\n Nenhuma(4)\n",
-      "proximos_estados":{
+    "frases":"Quantas copas tem o Brasil ?\n\n 4(1)\n 5(2)\n 6(3)\n Nenhuma(4)\n",
+    "proximos_estados":{
         "1":9,
         "2":8,
         "3":9,
@@ -107,7 +106,7 @@ estados = {
 
     12:{
         "frases":"Quantos estados tem o Brasil, contando o distrito federal ?\n\n 25(1)\n 26(2)\n 27(3)\n 28(4)\n",
-      "proximos_estados":{
+    "proximos_estados":{
         "1":9,
         "2":9,
         "3":8,
@@ -211,8 +210,8 @@ estados = {
         "2":8,
         "3":9,
         "4":9,
-      },
-      "inventario":{}
+    },
+    "inventario":{}
 },
 
     22:{
@@ -412,6 +411,81 @@ estados = {
         },
         "inventario":{}
 },
+    40:{
+        "frases":" Qual a melhor qualidade do Davi?\n\n Sua inteligência(1)\n Sua força(2)\n Sua beleza(3)\n Todos os anteriores(4)\n",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":8,
+        },
+        "inventario":{}
+},
+    41:{
+        "frases":" Você concorda que as vezes as pessoas são muito rudes sem motivo nenhum? Ontém na fila do pão eu tava esperando pra pegar meu pão de trigo né um pão bem quentinho prum ótimo café da tarde mas de repente o cara só chega e passa na minha frente nem pega senha e a moça atende ele ao invés de mim que peguei o papelzinho e fiquei esperando cara pqq tem pessoas que são assim detalhe ele ainda esbarrou em mim nem pra pedir desculpa credo\n\n Sim(1)\n Claro(2)\n Falou tudo(3)\n Se fosse eu dava logo um socão(4)\n",
+        "proximos_estados":{
+        "1":8,
+        "2":8,
+        "3":8,
+        "4":8,
+        },
+        "inventario":{}
+},
+    42:{
+        "frases":" Coringa! (deu azar)\n\n que saco...(1)",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":9,
+        "4":9,
+        },
+        "inventario":{}
+},
+    43:{
+        "frases":"...\n\n Biscoito(1)\n Bolacha(2)",
+        "proximos_estados":{
+        "1":9,
+        "2":8,
+        },
+        "inventario":{}
+},
+    44:{
+        "frases":" Aí você está numa aula de administração de redes e fez praticamente o trabalho todo nas duas últimas semanas kkkkkk.\n\n Bora(1)\n Vamo trabalhar(2)",
+        "proximos_estados":{
+        "1":8,
+        "2":8,
+        },
+        "inventario":{}
+},
+    45:{
+        "frases":" Will Smith levanta um estranho objeto prateado e põe um par de óculos escuros.\n\n Cobrir os olhos(1)\n O que?(2)",
+        "proximos_estados":{
+        "1":8,
+        "2":9,
+        },
+        "inventario":{}
+},
+    46:{
+        "frases":" O cartão do ônibus deu pau e você não tem dinheiro para pagar a passagem.\n\n Lamentar sua posição socioeconômica(1)\n Sair do ônibus(2)\n Pedir dinheiro emprestado do seu amigo(3)\n Brigar com o motorista(4)",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":8,
+        "4":9,
+        },
+        "inventario":{}
+},
+    47:{
+        "frases":" Qual país votou CONTRA a consideração de comida como um direito humano?\n\n Nigéria(1)\n Geórgia(2)\n Estados Unidos(3)\n Tunísia(4)",
+        "proximos_estados":{
+        "1":9,
+        "2":9,
+        "3":8,
+        "4":9,
+        },
+        "inventario":{}
+},
+
 
     4000:{
         'frases':'Digite "recomeçar" para limpar seu progresso e jogar de novo ou "1" Para receber seu Prêmio',

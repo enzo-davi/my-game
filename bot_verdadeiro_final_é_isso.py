@@ -77,9 +77,24 @@ async def on_message(msg):
                                 'estados_passados':[],
                                 'acertos':0,
                                 'erros':0,
+                                'streak':0,
+                                'pontuação':0,
                                 })
-        
+    # fazer premios   
+
+
+    # 100 pontos por pergunta
+    # calculadora do amor se sobrar tempo
+    # cada vez que o jogador acerta 3 seguidas ele ganha um multiplicador de pontuação de 2x
+
+    #---Power Ups---#
+    # quando o jogador consegue uma streak ele ganha uma dica que pode usar quando quiser--- 200
+    # pular uma pergunta uma vez por partida--- 400
+    # girar uma roleta magica e ter uma chance de 50% de acertar a pergunta -- 400
     #
+    # final verdadeiro---- 5000
+
+
     # Coletar os dados persistentes de usuário
     partida = partidas_db.find_one({'jogador': autor})
     
@@ -129,7 +144,7 @@ async def on_message(msg):
                 # cria uma lista com o número de perguntas que o jogador vai ter
                 if partida['aleatorio'] == 0:
                     #cria a lista que vai ser inserida no numero de perguntas
-                    numeros = 5
+                    numeros = 10
                     
                     # muda o aleatorio pra 1 pro jogador não entrar mais dentro desse if e 
                     # coloca o numero de perguntas no banco de dados do jogador
