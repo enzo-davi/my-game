@@ -79,6 +79,10 @@ async def on_message(msg):
                                 'erros':0,
                                 'streak':0,
                                 'pontuação':0,
+                                'tem_dica':0,
+                                'tem_skip':0,
+                                'tem_roleta':0,
+                                'ja_ganhou_dica':0,
                                 })
     # fazer premios   
 
@@ -190,14 +194,38 @@ async def on_message(msg):
             #Quando o estado for 8(acertos) adicione acertos e subtraia do número de perguntas
             if partida['estado'] == 8:
                 partida = partidas_db.find_one_and_update({'jogador':autor},
-                    {'$set':{'acertos': partida['acertos'] + 1, 'numero_de_perguntas': partida['numero_de_perguntas'] - 1}},
-                    return_document=pymongo.ReturnDocument.AFTER
-                    )
-            
+                {'$set':{'streak': partida['streak'] + 1}},
+                return_document=pymongo.ReturnDocument.AFTER
+                )
+
+
+                if partida['streak'] >= 3:
+                    if partida['ja_ganhou_dica'] == 0:
+                        partida = partidas_db.find_one_and_update({'jogador':autor},
+                            {'$set':{'acertos': partida['acertos'] + 1,
+                            'numero_de_perguntas': partida['numero_de_perguntas'] - 1,
+                            'pontuação': partida['pontuação'] + 200,
+                            'tem_dica':1,
+                            'ja_ganhou_dica':1,
+                            }},
+                            return_document=pymongo.ReturnDocument.AFTER
+                            )
+
+                else:
+                    partida = partidas_db.find_one_and_update({'jogador':autor},
+                        {'$set':{'acertos': partida['acertos'] + 1,
+                        'numero_de_perguntas': partida['numero_de_perguntas'] - 1,
+                        'pontuação': partida['pontuação'] + 100,
+                        }},
+                        return_document=pymongo.ReturnDocument.AFTER
+                        )
+
+                
             #Quando o estado for 9(erros) adicione erros e subtraia do número de perguntas
             if partida['estado'] == 9:
                 partida = partidas_db.find_one_and_update({'jogador':autor},
-                    {'$set':{'erros': partida['erros'] + 1, 'numero_de_perguntas': partida['numero_de_perguntas'] - 1}},
+                    {'$set':{'erros': partida['erros'] + 1, 
+                    'numero_de_perguntas': partida['numero_de_perguntas'] - 1}},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
 
