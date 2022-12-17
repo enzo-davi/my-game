@@ -26,7 +26,7 @@ partidas_db = database.partidas
 # Iniciar bot
 intents = discord.Intents.default()
 intents.message_content = True
-prefix = '='
+prefix = '-'
 bot = commands.Bot(intents=intents, command_prefix=prefix)
 
 
@@ -74,7 +74,7 @@ async def on_message(msg):
                                 'estado': 0,
                                 'aleatorio':0, 
                                 'numero_de_perguntas':0,
-                                'estados_passados':[],
+                                'estados_disponiveis':[0],
                                 'acertos':0,
                                 'erros':0,
                                 'streak':0,
@@ -103,7 +103,8 @@ async def on_message(msg):
     partida = partidas_db.find_one({'jogador': autor})
     
     print(f'partida {msg.author}: {partida["estado"]}')
-    print(estados[partida['estado']]['proximos_estados'].items())
+    # print(estados[partida['estado']]['proximos_estados'].items())
+    
     
     #
     # Testar se o canal é pvt (msg.channel.type.name == 'private')
@@ -140,20 +141,23 @@ async def on_message(msg):
                 {'$set': {'estado': value}},
                 return_document=pymongo.ReturnDocument.AFTER
             )
-            print('estado atualizado')
+            
 
             #Se o estado for 4000 é pra redirecionar o jogador para uma pergunta aleatória
             if partida['estado'] == 4000:
                 # se for a primeira vez do jogador entrando no estado quatro mil o bot 
-                # cria uma lista com o número de perguntas que o jogador vai ter
+                # define o numero de perguntas
                 if partida['aleatorio'] == 0:
-                    #cria a lista que vai ser inserida no numero de perguntas
+
                     numeros = 10
-                    
+                    # Cria uma lista com o numero de estados e coloca na database
+                    lista_estados_disponiveis = list(range(10,48))
                     # muda o aleatorio pra 1 pro jogador não entrar mais dentro desse if e 
                     # coloca o numero de perguntas no banco de dados do jogador
                     partida = partidas_db.find_one_and_update({'jogador':autor},
-                    {'$set':{'aleatorio':1,'numero_de_perguntas': numeros}},
+                    {'$set':{'aleatorio':1,'numero_de_perguntas': numeros,
+                    'estados_disponiveis': lista_estados_disponiveis,
+                    }},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
 
@@ -163,22 +167,16 @@ async def on_message(msg):
                 
                 # Checar se o número de perguntas não acabou
                 if partida['numero_de_perguntas'] > 0:
-                    # Escolhe um número aleatório com o número de estados.
-                    estado_aleatorio = random.randint(10,39)
-                    # Se o número já tiver sido escolhido antes continue ele continua sorteando.
-                    if estado_aleatorio in partida['estados_passados']:
-                        while estado_aleatorio in partida['estados_passados']:
-                            
-                            partida = partidas_db.find_one_and_update({'jogador':autor},
-                    {'$set':{'estados_passados': partida['estados_passados'].append(estado_aleatorio), 'numero_de_perguntas': partida['numero_de perguntas'] - 1}},
-                    return_document=pymongo.ReturnDocument.AFTER
-                    )
-                            estado_aleatorio = random.randint(10, 39)
-
-
-
+                    # Pega a lista de estados do jogador, "bagunça" ela e escolhe o primeiro elemento com pop(), que também retira o elemento da lista original, garantindo que os estados não se repetirão
+                    lista_estados = partida['estados_disponiveis']
+                    lista_aleatoria = random.shuffle(lista_estados)
+                    proximo_estado = lista_aleatoria.pop(0)
+                    
+                    # atualiza o jogador pro estado aleatório e atualiza a lista de estados disponiveis
                     partida = partidas_db.find_one_and_update({'jogador':autor},
-                    {'$set':{'estado': estado_aleatorio}},
+                    {'$set':{'estado': proximo_estado,
+                    'estados_disponiveis': lista_aleatoria, 
+                    }},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
                 #Se o número de perguntas for 0 quer dizer que o jogador acabou o quiz, 
@@ -192,43 +190,67 @@ async def on_message(msg):
 
 
             #Quando o estado for 8(acertos) adicione acertos e subtraia do número de perguntas
+            #Como o return acontecerá dentro dos estados de acerto e erro não enviaremos imagens ou sons 
             if partida['estado'] == 8:
+                numero_perguntas = partida['numero_de_perguntas'] - 1
                 partida = partidas_db.find_one_and_update({'jogador':autor},
-                {'$set':{'streak': partida['streak'] + 1}},
+                {'$set':{'streak': partida['streak'] + 1, 
+                'numero_de_perguntas': numero_perguntas}},
                 return_document=pymongo.ReturnDocument.AFTER
                 )
 
-
+                # Se o jogador acertar 3 ou mais perguntas seguidas ele ganha 200 pontos pela pergunta
                 if partida['streak'] >= 3:
+                    partida = partidas_db.find_one_and_update({'jogador':autor},
+                        {'$set':{'acertos': partida['acertos'] + 1,
+                        'pontuação': partida['pontuação'] + 200,
+                        }},
+                        return_document=pymongo.ReturnDocument.AFTER
+                        )
+                        #Se for a primeira vez na partida do jogador que ele ganha uma streak ele ganha uma dica
                     if partida['ja_ganhou_dica'] == 0:
                         partida = partidas_db.find_one_and_update({'jogador':autor},
-                            {'$set':{'acertos': partida['acertos'] + 1,
-                            'numero_de_perguntas': partida['numero_de_perguntas'] - 1,
-                            'pontuação': partida['pontuação'] + 200,
+                            {'$set':{
                             'tem_dica':1,
                             'ja_ganhou_dica':1,
                             }},
                             return_document=pymongo.ReturnDocument.AFTER
                             )
-
+                    streak = partida['streak']
+                    pontuação = partida['pontuação']
+                    acertos = partida['acertos']
+                    erros = partida['erros']
+                    await msg.channel.send(f'Acertou!\n\n Você está numa streak de {streak} acertos e acertou {acertos} de {acertos + erros}.\n\n {pontuação} pontos.\n\n Continuar(1)')
+                    return            
+                #Se o jogador não estiver na streak ele ganha 100 pontos.    
                 else:
                     partida = partidas_db.find_one_and_update({'jogador':autor},
                         {'$set':{'acertos': partida['acertos'] + 1,
-                        'numero_de_perguntas': partida['numero_de_perguntas'] - 1,
                         'pontuação': partida['pontuação'] + 100,
                         }},
                         return_document=pymongo.ReturnDocument.AFTER
                         )
+                    pontuação = partida['pontuação']
+                    acertos = partida['acertos']
+                    erros = partida['erros']
+                    await msg.channel.send(f'Acertou!\n\n Você acertou {acertos} de {acertos + erros}.\n\n {pontuação} pontos.\n\n Continuar(1)')
+                    return
+
 
                 
             #Quando o estado for 9(erros) adicione erros e subtraia do número de perguntas
             if partida['estado'] == 9:
+                numero_perguntas = partida['numero_de_perguntas'] - 1
                 partida = partidas_db.find_one_and_update({'jogador':autor},
                     {'$set':{'erros': partida['erros'] + 1, 
-                    'numero_de_perguntas': partida['numero_de_perguntas'] - 1}},
+                    'numero_de_perguntas': numero_perguntas}},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
-
+                pontuação = partida['pontuação']
+                acertos = partida['acertos']
+                erros = partida['erros']    
+                await msg.channel.send(f'Errou.\n\n Você acertou {acertos} de {acertos + erros}.\n\n {pontuação} pontos.\n\n Continuar(1)')
+                return
 
 
 
@@ -261,12 +283,9 @@ async def on_message(msg):
             await msg.channel.send(estados[partida['estado']]["frases"])
             return
 
-    # Sempre responder ao usuário (dica ou não)
-    #if partida['estado'] == 0:
-    #   await msg.channel.send(estados[partida['estado']]['frases'])
-    #else:
+    #Sempre responder ao jogador
     await msg.channel.send(estados[partida["estado"]]["frases"])
 
-        #await frase genérica...
+        
 
 bot.run(getenv('TOKEN_DO_BOT', default=''))
