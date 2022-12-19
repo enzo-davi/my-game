@@ -1,6 +1,5 @@
 from estados_davi import estados, canais_de_voz
 import discord
-from discord import FFmpegPCMAudio
 import random
 from discord.ext import commands
 from random import choice
@@ -39,7 +38,7 @@ async def tocar_som(msg,Nome_do_arquivo_do_som):
 
 
 
-
+#mandar imagens com o file= discord.File('nome_da_file')
 @bot.event
 async def on_ready():
     print('Pronto e iniciado')
@@ -66,15 +65,15 @@ async def on_message(msg):
         # Pesquisar e apagar o registro no banco - e informar o usuário
         partidas_db.find_one_and_delete({'jogador': autor})
         
-        await msg.channel.send("prontinho mano", file= discord.File('atumalaga.png'))
+        await msg.channel.send("Progresso apagado")
         return
     #
     # e fechar todos os canais de bot
-    if fullmatch('[vV]aza', mensagem):
+    if fullmatch('[dD]esconectar', mensagem):
         #
         # Fechar todos os canais de voz
         [await canais_de_voz[i].disconnect() for i in canais_de_voz.keys()]
-        await msg.channel.send("Flw.")
+        await msg.channel.send("Desconectando de todos os canais.")
         return
     #
     # Garantir que o autor tem dados de partida
@@ -90,10 +89,8 @@ async def on_message(msg):
                                 'erros':0,
                                 'streak':0,
                                 'pontuação':0,
-                                'tem_dica':0,
                                 'tem_skip':0,
-                                'tem_roleta':0,
-                                'ja_ganhou_dica':0,
+                                'comprou_skip':0,
                                 })
     # fazer premios   
 
@@ -102,9 +99,8 @@ async def on_message(msg):
     # cada vez que o jogador acerta 3 seguidas ele ganha um multiplicador de pontuação de 2x
 
     #---Power Ups---#
-    # quando o jogador consegue uma streak ele ganha uma dica que pode usar quando quiser--- 200
+    #
     # pular uma pergunta uma vez por partida--- 400
-    # girar uma roleta magica e ter uma chance de 50% de acertar a pergunta -- 400
     #
     # final verdadeiro---- 5000
 
@@ -112,7 +108,7 @@ async def on_message(msg):
     # Coletar os dados persistentes de usuário
     partida = partidas_db.find_one({'jogador': autor})
     
-    print(f'partida {msg.author}: {partida["estado"]}')
+    print(f'partida {msg.author} estado: {partida["estado"]}')
     # print(estados[partida['estado']]['proximos_estados'].items())
     
     
@@ -134,14 +130,15 @@ async def on_message(msg):
             if msg.guild.me not in msg.author.voice.channel.members:
                 canais_de_voz[autor] = await msg.author.voice.channel.connect()
         else:
-            await msg.channel.send("ENTRA NUM CANAL")
+            await msg.channel.send("Entre num canal antes de começar o jogo.")
             return
 
     
         
     
-
+    
     # Varrer os possíveis próximos estados para validar com a mensagem do usuário
+    
     for key, value in estados[partida['estado']]['proximos_estados'].items():
         if fullmatch(key, mensagem):
             #
@@ -153,8 +150,27 @@ async def on_message(msg):
             )
             
 
+# Se o estado for 4001 mostre uma imagem  que depende da performance do jogador na partida
+            if partida['estado'] == 4001:
 
-# Se o estado for 2 desconecta o bot e deixa o estado como 0
+                partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'aleatorio':0,
+                    }},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
+                acertos = partida['acertos']
+                if acertos <= 3:
+                    await msg.channel.send("Por sua terrível performance, a equipe de produção o leva para uma ilha deserta, a fim de que você tenha muito tempo para pensar sobre seus atos.", file = discord.File('ilha_deserta.jpg'))
+                elif acertos <= 5:
+                    await msg.channel.send('Você foi mal, mas não o suficiente para me causar grande desapontamento.\n\n Pela sua performance hoje, você recebe uma estrela.', file = discord.File('estrela.jpg'))
+                elif acertos <=7:
+                    await msg.channel.send('Sua performance me deixou completamente neutro. Você não foi bem e nem mal, bem vindo ao clube da mediocridade.', file = discord.File('meh.jpg'))
+                elif acertos <= 9:
+                    await msg.channel.send('Sua performance foi como sentir a fresca brisa do mar, como quando você come uma comida excepcionalmente boa, ou até mesmo como quando você chega em casa e retira os calçados.\n\nPelo seu esforço, você ganha um travesseiro que sempre mantém os dois lados numa temperatura agradável.', file = discord.File('travesseiro.jpg'))
+                elif acertos == 10:
+                    await msg.channel.send('Você superou absolutamente todas as minhas expectativas. A plateia exclama seu nome com emoção e júbilo, exaltando-o como o melhor de todos os tempos.', file = discord.File('trofeu levante.png'))
+                    
+
 
             #Se o estado for 4000 é pra redirecionar o jogador para uma pergunta aleatória
             if partida['estado'] == 4000:
@@ -219,15 +235,6 @@ async def on_message(msg):
                         }},
                         return_document=pymongo.ReturnDocument.AFTER
                         )
-                        #Se for a primeira vez na partida do jogador que ele ganha uma streak ele ganha uma dica
-                    if partida['ja_ganhou_dica'] == 0:
-                        partida = partidas_db.find_one_and_update({'jogador':autor},
-                            {'$set':{
-                            'tem_dica':1,
-                            'ja_ganhou_dica':1,
-                            }},
-                            return_document=pymongo.ReturnDocument.AFTER
-                            )
                     streak = partida['streak']
                     pontuação = partida['pontuação']
                     acertos = partida['acertos']
@@ -260,16 +267,44 @@ async def on_message(msg):
                     }},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
-
-
-
                 pontuação = partida['pontuação']
                 acertos = partida['acertos']
                 erros = partida['erros']    
                 await msg.channel.send(f'Errou.\n\n Você acertou {acertos} de {acertos + erros}.\n\n {pontuação} pontos.\n\n Continuar(1)')
                 
 
+            if partida['estado'] == 101 and partida['comprou_skip'] == 0 and partida['pontuação'] >= 400:
+                partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'comprou_skip':1,
+                    'pontuação': partida['pontuação'] - 400,
+                    }},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
+                await msg.channel.send('Power up comprado com sucesso, para voltar para a loja digite (1)')
+            elif partida['estado'] == 101 and partida['comprou_skip'] == 1:
+                await msg.channel.send('Você já comprou este power up, para voltar para a loja digite (1)')
+            elif partida['estado'] == 101 and partida['comprou_skip'] == 0 and partida['pontuação'] < 400:
+                await msg.channel.send('Você não tem pontos o suficiente para compar este power up, para voltar para a loja digite (1)')
 
+
+
+            
+            if partida['estado'] == 0:
+                partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'acertos':0,
+                    'erros': 0,
+                    'numero_de_perguntas':0,
+                    'aleatorio': 0,
+                    'streak': 0,
+                    }},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
+                if partida['comprou_skip'] == 1:
+                    partida = partidas_db.find_one_and_update({'jogador':autor},
+                    {'$set':{'tem_skip':1,
+                    }},
+                    return_document=pymongo.ReturnDocument.AFTER
+                    )
 
 
 
@@ -296,9 +331,25 @@ async def on_message(msg):
             #[await msg.channel.send()i for i in choice(estados[value]['frases']).split('|')]
             #  return
 
+            if partida['estado'] == 100:
+                pontos = partida['pontuação']
+                await msg.channel.send(estados[partida['estado']]["frases"] + f'Pontuação: {pontos}' )
+                return
+
+
+
+
+
+
+
+
             
             await msg.channel.send(estados[partida['estado']]["frases"])
+            
+                
             return
+            
+
 
     #Sempre responder ao jogador
     await msg.channel.send(estados[partida["estado"]]["frases"])

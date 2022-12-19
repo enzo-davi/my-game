@@ -3,11 +3,12 @@ estados = {
 #Tutorial
 
     0: {
-        "frases":"Iniciar o jogo?\n\n SIM(1)\n LOJA(2)\n Pular Tutorial(3)\n", 
+        "frases":"Iniciar o jogo?\n\n SIM(1)\n LOJA(2)\n Pular Tutorial(3)\n Comandos Especiais(4):", 
         "proximos_estados":{
         "1":1,
-        "2":2,
+        "2":100,
         "3":4000,
+        "4":2000,
         },
         "inventario":{}
             
@@ -284,8 +285,8 @@ estados = {
         "frases":"Onde é o lugar natural mais baixo do planeta Terra ?\n\n Lago Baikal(1)\n Fossa das Marianas(2)\n Kidd Mine(3)\n Nehuma das alternativas(4)\n",
         "proximos_estados":{
         "1":9,
-        "2":9,
-        "3":8,
+        "2":8,
+        "3":9,
         "4":9,
         },
         "inventario":{}
@@ -493,20 +494,65 @@ estados = {
         },
         "inventario":{}
 },
-
+    100:{
+        "frases":" Aqui é a loja, estes são os itens à venda:\n\n (1)Final verdadeiro(3000 pontos)\n (2)Voltar.\n\n ",
+        "proximos_estados":{
+        "1":1000,
+        "2":0,
+        },
+        "inventario":{}
+},
+    101:{
+        "frases":"" ,
+        "proximos_estados":{
+        "1":100,
+        
+        },
+        "inventario":{}
+},
+    1000:{
+        "frases":"Você ouve o som de uma porta rangindo atrás de você. Um senhor de idade com cabelos grisalhos e uma aparência" ,
+        "proximos_estados":{
+        "1":100,
+        
+        },
+        "inventario":{}
+},
+    2000:{
+        "frases":"Aqui estão os comandos especiais do bot:\n\n Recomeçar: Limpa todo o progresso do jogo(inclusive a pontuação)\n Desconectar: Desconecta o bot de todos os canais de voz\nVoltar(1)",
+        "proximos_estados":{
+        "1":0,
+        
+        },
+        "inventario":{}
+},
     4000:{
-        'frases':'Digite "1" Para receber seu Prêmio ou "recomeçar" para limpar seu progresso e jogar de novo.',
+        'frases':'Digite "1" Para receber seu Prêmio, "2" para ir para a loja ou "3" para jogar novamente.',
         "proximos_estados": {
         "1":4001,
+        "2":100,
+        "3": 0,
         },
         "inventario":{}
 },
 
     4001:{
-        'frases':"colocar algo legal aqui depois" ,
-        'proximos_estados':{},
+        'frases':"" ,
+        'proximos_estados':{
+            "1":4001,
+            "2":100,
+            "3":0
+        },
         "inventario":{}
 },
+
+
+
+
+
+
+
+
 
 }   
 
