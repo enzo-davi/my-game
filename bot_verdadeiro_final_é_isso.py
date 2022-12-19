@@ -1,5 +1,6 @@
 from estados_davi import estados, canais_de_voz
 import discord
+from discord import FFmpegPCMAudio
 import random
 from discord.ext import commands
 from random import choice
@@ -30,6 +31,15 @@ prefix = '-'
 bot = commands.Bot(intents=intents, command_prefix=prefix)
 
 
+async def tocar_som(msg,Nome_do_arquivo_do_som):
+    if msg.channel.type.name != 'private':
+        source = FFmpegPCMAudio(Nome_do_arquivo_do_som)
+        await msg.author.voice.channel.play(source)
+
+
+
+
+
 @bot.event
 async def on_ready():
     print('Pronto e iniciado')
@@ -55,7 +65,8 @@ async def on_message(msg):
         #
         # Pesquisar e apagar o registro no banco - e informar o usuário
         partidas_db.find_one_and_delete({'jogador': autor})
-        await msg.channel.send("prontinho mano")
+        
+        await msg.channel.send("prontinho mano", file= discord.File('atumalaga.png'))
         return
     #
     # e fechar todos os canais de bot
@@ -88,7 +99,6 @@ async def on_message(msg):
 
 
     # 100 pontos por pergunta
-    # calculadora do amor se sobrar tempo
     # cada vez que o jogador acerta 3 seguidas ele ganha um multiplicador de pontuação de 2x
 
     #---Power Ups---#
@@ -143,12 +153,15 @@ async def on_message(msg):
             )
             
 
+
+# Se o estado for 2 desconecta o bot e deixa o estado como 0
+
             #Se o estado for 4000 é pra redirecionar o jogador para uma pergunta aleatória
             if partida['estado'] == 4000:
                 # se for a primeira vez do jogador entrando no estado quatro mil o bot 
                 # define o numero de perguntas
                 if partida['aleatorio'] == 0:
-
+                    #
                     numeros = 10
                     # Cria uma lista com o numero de estados e coloca na database
                     lista_estados_disponiveis = list(range(10,48))
@@ -160,22 +173,21 @@ async def on_message(msg):
                     }},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
-
-
-
+                    #
+                    #
                     print(partida['numero_de_perguntas'])
-                
+                #
                 # Checar se o número de perguntas não acabou
                 if partida['numero_de_perguntas'] > 0:
-                    # Pega a lista de estados do jogador, "bagunça" ela e escolhe o primeiro elemento com pop(), que também retira o elemento da lista original, garantindo que os estados não se repetirão
-                    lista_estados = partida['estados_disponiveis']
-                    lista_aleatoria = random.shuffle(lista_estados)
-                    proximo_estado = lista_aleatoria.pop(0)
+                    #
+                    lista_estados_disponiveis = partida['estados_disponiveis'].copy()
+                    random.shuffle(lista_estados_disponiveis)
+                    estado_aleatorio = lista_estados_disponiveis.pop(0)
                     
                     # atualiza o jogador pro estado aleatório e atualiza a lista de estados disponiveis
                     partida = partidas_db.find_one_and_update({'jogador':autor},
-                    {'$set':{'estado': proximo_estado,
-                    'estados_disponiveis': lista_aleatoria, 
+                    {'$set':{'estado': estado_aleatorio,
+                    'estados_disponiveis': lista_estados_disponiveis, 
                     }},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
@@ -238,19 +250,24 @@ async def on_message(msg):
 
 
                 
-            #Quando o estado for 9(erros) adicione erros e subtraia do número de perguntas
+            #Quando o estado for 9(erros) zere a streak, adicione erros e subtraia do número de perguntas
             if partida['estado'] == 9:
                 numero_perguntas = partida['numero_de_perguntas'] - 1
                 partida = partidas_db.find_one_and_update({'jogador':autor},
                     {'$set':{'erros': partida['erros'] + 1, 
-                    'numero_de_perguntas': numero_perguntas}},
+                    'numero_de_perguntas': numero_perguntas,
+                    'streak':0,
+                    }},
                     return_document=pymongo.ReturnDocument.AFTER
                     )
+
+
+
                 pontuação = partida['pontuação']
                 acertos = partida['acertos']
                 erros = partida['erros']    
                 await msg.channel.send(f'Errou.\n\n Você acertou {acertos} de {acertos + erros}.\n\n {pontuação} pontos.\n\n Continuar(1)')
-                return
+                
 
 
 
@@ -268,7 +285,7 @@ async def on_message(msg):
                     #
                     # Conectar no canal de áudio e emitir o som
                     som_opus = await discord.FFmpegOpusAudio.from_probe(arquivo_de_som)
-                    canais_de_voz[autor].play(som_opus)
+                    canais_de_voz[msg.author.id].play(som_opus)
             #
             # Se houver uma imagem referente ao estado, enviar
             arquivo_de_imagem = str(value) + '.png'
@@ -286,6 +303,6 @@ async def on_message(msg):
     #Sempre responder ao jogador
     await msg.channel.send(estados[partida["estado"]]["frases"])
 
-        
+
 
 bot.run(getenv('TOKEN_DO_BOT', default=''))

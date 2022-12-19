@@ -3,7 +3,7 @@ estados = {
 #Tutorial
 
     0: {
-        "frases":"Iniciar o jogo?\n\n SIM(1)\n NÃO(2)\n Pular Tutorial(3)\n", 
+        "frases":"Iniciar o jogo?\n\n SIM(1)\n LOJA(2)\n Pular Tutorial(3)\n", 
         "proximos_estados":{
         "1":1,
         "2":2,
@@ -22,7 +22,7 @@ estados = {
 },
 
     2:{
-        "frases":"Desconectando.",
+        "frases":"bem vindo a a loja.",
         "proximos_estados":{},
         "inventario":{}
 },
@@ -193,7 +193,7 @@ estados = {
 }, 
 
     20:{
-        "frases":"Quantos filmes tem a franquia Veloses e Furiosos até o ano de 2022 ?\n\n 7(1)\n 8(2)\n 9(3)\n 10(4)\n",
+        "frases":"Quantos filmes tem a franquia Velozes e Furiosos até o ano de 2022 ?\n\n 7(1)\n 8(2)\n 9(3)\n 10(4)\n",
         "proximos_estados":{
         "1":9,
         "2":9,
