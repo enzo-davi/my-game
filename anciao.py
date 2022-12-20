@@ -26,7 +26,7 @@ partidas_db = database.partidas
 # Iniciar bot
 intents = discord.Intents.default()
 intents.message_content = True
-prefix = '-'
+prefix = '='
 bot = commands.Bot(intents=intents, command_prefix=prefix)
 
 
