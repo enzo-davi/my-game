@@ -348,7 +348,8 @@ async def on_message(msg):
                     return
 
             if partida['estado'] == 1006:
-                await msg.channel.send(f'{estados[partida['estado']]["frases"]}' + file = discord.File('véio.png'))
+                frase = estados[partida['estado']]["frases"]
+                await msg.channel.send(frase, file = discord.File('véio.png'))
                 return
 
 
