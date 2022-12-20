@@ -520,7 +520,7 @@ estados = {
         "inventario":{}
 },
     1001:{
-        "frases":"" ,
+        "frases":" A figura retira seu capuz e " ,
         "proximos_estados":{
         "1":1001,
         "4":100,
