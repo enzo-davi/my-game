@@ -15,7 +15,7 @@ estados = {
 },
 
     1: {
-        "frases":"Bem vindo(a)!\n\n Nesse Quiz será feito 30 perguntas variando de nível fácil a difícil, e seu objetivo é acertar o maior número possível. Você terá respostas de múltipla escolha, no qual apenas UMA estará correta. Para escolher uma alternativa digite um dos números referentes a alternativa.\n\n Continuar tutorial(1)\n ", 
+        "frases":"Bem vindo(a)!\n\n Nesse Quiz será feitas 10 perguntas. Seu objetivo é acertar o maior número possível. Você terá respostas de múltipla escolha, no qual apenas UMA estará correta. Para escolher uma alternativa digite um dos números referentes a alternativa.\n\n Continuar tutorial(1)\n ", 
         "proximos_estados":{
         "1":3
         },
@@ -495,7 +495,7 @@ estados = {
         "inventario":{}
 },
     100:{
-        "frases":" Aqui é a loja, estes são os itens à venda:\n\n (1)Final verdadeiro(3000 pontos)\n (2)Voltar.\n\n ",
+        "frases":" Aqui é a loja, estes são os itens à venda:\n\n (1)Final verdadeiro(2000 pontos)\n (2)Voltar.\n\n ",
         "proximos_estados":{
         "1":1000,
         "2":0,
@@ -511,9 +511,19 @@ estados = {
         "inventario":{}
 },
     1000:{
-        "frases":"Você ouve o som de uma porta rangindo atrás de você. Um senhor de idade com cabelos grisalhos e uma aparência" ,
+        "frases":"Você ouve o som do vento e sente o ar balançando seus cabelos. Sem se dar conta, você foi transportado para o topo de uma grande torre de pedra. Ao olhar em volta você percebe a presença de uma silhueta encapuzada.\n\n (1)Quem é você? " ,
         "proximos_estados":{
-        "1":100,
+        "1":1001,
+        "4":100,
+        
+        },
+        "inventario":{}
+},
+    1001:{
+        "frases":"" ,
+        "proximos_estados":{
+        "1":1001,
+        "4":100,
         
         },
         "inventario":{}

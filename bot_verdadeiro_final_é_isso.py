@@ -336,7 +336,12 @@ async def on_message(msg):
                 await msg.channel.send(estados[partida['estado']]["frases"] + f'Pontuação: {pontos}' )
                 return
 
-
+            if partida['estado'] == 1000:
+                pontos = partida['pontuação']
+                if pontos >= 2000:
+                    await msg.channel.send(estados[partida['estado']]["frases"])
+                else:
+                    await msg.channel.send('Você não tem pontos o suficiente para comprar o final verdadeiro, volte com mais pontos\n\n (1)Voltar.')
 
 
 
