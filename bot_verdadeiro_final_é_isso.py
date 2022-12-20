@@ -91,6 +91,7 @@ async def on_message(msg):
                                 'pontuação':0,
                                 'tem_skip':0,
                                 'comprou_skip':0,
+                                'pegou_final':0,
                                 })
     # fazer premios   
 
@@ -336,13 +337,19 @@ async def on_message(msg):
                 await msg.channel.send(estados[partida['estado']]["frases"] + f'Pontuação: {pontos}' )
                 return
 
+
             if partida['estado'] == 1000:
                 pontos = partida['pontuação']
                 if pontos >= 2000:
                     await msg.channel.send(estados[partida['estado']]["frases"])
+                    return
                 else:
-                    await msg.channel.send('Você não tem pontos o suficiente para comprar o final verdadeiro, volte com mais pontos\n\n (1)Voltar.')
+                    await msg.channel.send('Você não tem pontos o suficiente para comprar o final verdadeiro, volte com mais pontos\n\n (4)Voltar.')
+                    return
 
+            if partida['estado'] == 1006:
+                await msg.channel.send(f'{estados[partida['estado']]["frases"]}' + file = discord.File('véio.png'))
+                return
 
 
 

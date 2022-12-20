@@ -520,10 +520,49 @@ estados = {
         "inventario":{}
 },
     1001:{
-        "frases":" A figura retira seu capuz e " ,
+        "frases":" A figura retira seu capuz e revela a face cansada de um velho. Ao ver seu rosto você sente uma sensação familiar longínqua, como se você se tivesse acabado de despertar uma memória distante no fundo de sua mente. Você sente que conhece esse velho de algum lugar.\n\n (1)Prosseguir" ,
         "proximos_estados":{
-        "1":1001,
-        "4":100,
+        "1":1002,
+        
+        },
+        "inventario":{}
+},
+    1002:{
+        "frases":' Bem vindo. \n\n Você pode me chamar de Ancião, ou simplesmente "O velho". Eu sou o criador de tudo que você vê em volta. (1)Prosseguir ',
+        "proximos_estados":{
+        "1":1003,
+        
+        },
+        "inventario":{}
+},
+    1003:{
+        "frases":' Aqui é o mundo das idéias não utilizadas, onde jazem todos os projetos inacabados, pensamentos e sonhos que não levaram a resultados significativos ou nunca entraram em prática. O velho gesticula para os campos rosados além do topo da torre e são revelados lugares repletos de itens aleatórios que não parecem combinar com o ambiente ao seu redor. Designs de bicicletários eletrônicos modernos juntos de carroças medievais, são como vislumbres temporários para mundos distantes. \n\n Na distância você vê personagens descartados, histórias deixadas pela metade e planos não concretizados. \n\n (1)Continuar ',
+        "proximos_estados":{
+        "1":1004,
+        
+        },
+        "inventario":{}
+},
+    1004:{
+        "frases":'"É triste saber que todas estas idéias nunca sairão deste mundo, confinadas a uma eternidade de sonhos frustrados." O velho conta, com uma expressão amarga.\n\n "Mas creio que nada aqui é em vão, porque apesar de nada daqui poder sair deste lugar, cada idéia que você vê foi a inspiração para outras criações, idéias que talvez pudessem ter a chance de ir para o mundo da realização". \n\n O velho estava aflito, mas parecia estar sendo honesto\n "Por esse motivo é que eu não me arrependo de colocar nada neste mundo, e também agradeço a você, por me trazer a inspiração necessária para criar este mundo".\n\n (1)Continuar ',
+        "proximos_estados":{
+        "1":1005,
+        
+        },
+        "inventario":{}
+},
+    1005:{
+        "frases":'O velho, ou melhor, o Ancião, lhe lança um último sorriso cansado. Com isso, sua visão começa a ficar turva e o mundo parece girar. Ao recuperar seus sentidos, você percebe que voltou ao seu computador, em casa, e que nunca poderá voltar aquele mundo que visitou. (1)Fim?  ',
+        "proximos_estados":{
+        "1":1006,
+        
+        },
+        "inventario":{}
+},
+    1005:{
+        "frases":'Adeus, rapaz',
+        "proximos_estados":{
+        
         
         },
         "inventario":{}
